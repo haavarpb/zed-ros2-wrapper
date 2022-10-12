@@ -5167,6 +5167,12 @@ void ZedCamera::processDetectedObjects(rclcpp::Time t)
                     &(data.keypoint[0]),
                     3 * kp_size * sizeof(float));
             }
+
+            memcpy(&(objMsg->objects[idx].global_root_orientation.global_root_orientation),
+            &(data.global_root_orientation),
+            sizeof(data.global_root_orientation));
+
+            memcpy(&(objMsg->objects[idx].local_orientation_per_joint.local_orientation[0]), &(data.local_orientation_per_joint[0]), 34 * 4 * sizeof(float));
         } else {
             objMsg->objects[idx].skeleton_available = false;
         }
